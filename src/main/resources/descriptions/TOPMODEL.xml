@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wps:ProcessOfferings
+	xmlns:wps="http://www.opengis.net/wps/2.0"
+	xmlns:ows="http://www.opengis.net/ows/2.0"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<wps:ProcessOffering jobControlOptions="sync-execute async-execute step-execute dismiss" outputTransmission="value reference">
+		<wps:Process> 			
+			<ows:Title>Planar Buffer operation for Simple Features</ows:Title>
+			<ows:Abstract>Create a buffer around Simple Feature geometries. Accepts any valid simple features input in GML or GeoJson and computes their joint buffer geometry.</ows:Abstract>
+			<ows:Identifier>Topmodel</ows:Identifier>
+			<wps:Input>
+				<ows:Title>topographic index</ows:Title>
+				<ows:Abstract>topographic index</ows:Abstract>
+				<ows:Identifier>TopoIndex</ows:Identifier>
+				<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#common"/>
+				<wps:ComplexData>
+					<wps:Format mimeType="text/plain" encoding="UTF-8" default="true"/>
+				</wps:ComplexData>
+			</wps:Input>
+			<wps:Input>
+				<ows:Title>Rate</ows:Title>
+				<ows:Abstract>subsurface Recharge rate</ows:Abstract>
+				<ows:Identifier>Rate</ows:Identifier>
+				<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#common"/>
+				<wps:LiteralData>
+					<wps:Format mimeType="text/plain" default="true"/>
+					<wps:Format mimeType="text/xml"/>
+					<LiteralDataDomain default="true">
+						<ows:DataType ows:reference="http://www.w3.org/2001/XMLSchema#double">Double</ows:DataType>
+					</LiteralDataDomain>
+				</wps:LiteralData>
+			</wps:Input>
+			
+			<wps:Input>
+				<ows:Title>recession parameter</ows:Title>
+				<ows:Abstract>recession parameter (m)</ows:Abstract>
+				<ows:Identifier>Recession</ows:Identifier>
+				<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#common"/>
+				<wps:LiteralData>
+					<wps:Format mimeType="text/plain" default="true"/>
+					<wps:Format mimeType="text/xml"/>
+					<LiteralDataDomain default="true">
+						<ows:DataType ows:reference="http://www.w3.org/2001/XMLSchema#double">Double</ows:DataType>
+					</LiteralDataDomain>
+				</wps:LiteralData>
+			</wps:Input>
+			
+			<wps:Input>
+				<ows:Title>Tmax</ows:Title>
+				<ows:Abstract>Average effective transmissivity of the soil when the profile is just saturated</ows:Abstract>
+				<ows:Identifier>Tmax</ows:Identifier>
+				<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#common"/>
+				<wps:LiteralData>
+					<wps:Format mimeType="text/plain" default="true"/>
+					<wps:Format mimeType="text/xml"/>
+					<LiteralDataDomain default="true">
+						<ows:DataType ows:reference="http://www.w3.org/2001/XMLSchema#double">Double</ows:DataType>
+					</LiteralDataDomain>
+				</wps:LiteralData>
+			</wps:Input>
+
+			<wps:Input>
+				<ows:Title>Interception</ows:Title>
+				<ows:Abstract>intial interciption of the watershed</ows:Abstract>
+				<ows:Identifier>Interception</ows:Identifier>
+				<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#common"/>
+				<wps:LiteralData>
+					<wps:Format mimeType="text/plain" default="true"/>
+					<wps:Format mimeType="text/xml"/>
+					<LiteralDataDomain default="true">
+						<ows:DataType ows:reference="http://www.w3.org/2001/XMLSchema#double">Double</ows:DataType>
+					</LiteralDataDomain>
+				</wps:LiteralData>
+			</wps:Input>
+
+			<wps:Input>
+				<ows:Title>WatershedArea</ows:Title>
+				<ows:Abstract>the area of the watershed</ows:Abstract>
+				<ows:Identifier>WatershedArea</ows:Identifier>
+				<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#common"/>
+				<wps:LiteralData>
+					<wps:Format mimeType="text/plain" default="true"/>
+					<wps:Format mimeType="text/xml"/>
+					<LiteralDataDomain default="true">
+						<ows:DataType ows:reference="http://www.w3.org/2001/XMLSchema#double">Double</ows:DataType>
+					</LiteralDataDomain>
+				</wps:LiteralData>
+			</wps:Input>
+			
+			<wps:Input>
+				<ows:Title>Start time</ows:Title>
+				<ows:Identifier>StartTime</ows:Identifier>
+				<ows:Abstract>the start time of the simulation</ows:Abstract>
+				<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#common"/>
+				<wps:LiteralData>
+					<wps:Format mimeType="text/plain" default="true"/>
+					<LiteralDataDomain default="true">
+						<ows:DataType ows:reference="http://www.w3.org/2001/XMLSchema#dateTime">DateTime</ows:DataType>
+					</LiteralDataDomain>
+				</wps:LiteralData>
+			</wps:Input>			
+
+			<wps:Input>
+				<ows:Title>End time</ows:Title>
+				<ows:Identifier>EndTime</ows:Identifier>
+				<ows:Abstract>the end time of the simulation</ows:Abstract>
+				<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#common"/>
+				<wps:LiteralData>
+					<wps:Format mimeType="text/plain" default="true"/>
+					<LiteralDataDomain default="true">
+						<ows:DataType ows:reference="http://www.w3.org/2001/XMLSchema#dateTime">DateTime</ows:DataType>
+					</LiteralDataDomain>
+				</wps:LiteralData>
+			</wps:Input>	
+		
+			<wps:Input>
+				<ows:Title>End time</ows:Title>
+				<ows:Identifier>end_time</ows:Identifier>
+				<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#common"/>
+				<wps:LiteralData>
+					<wps:Format mimeType="text/plain" default="true"/>
+					<LiteralDataDomain default="true">
+						<ows:DataType ows:reference="http://www.w3.org/2001/XMLSchema#string">String</ows:DataType>
+					</LiteralDataDomain>
+				</wps:LiteralData>
+			</wps:Input>
+			
+			<wps:Input>
+				<ows:Title>time step</ows:Title>
+				<ows:Identifier>TimeStep</ows:Identifier>
+				<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#common"/>
+				<wps:LiteralData>
+					<wps:Format mimeType="text/plain" default="true"/>
+					<LiteralDataDomain default="true">
+						<ows:DataType ows:reference="http://www.w3.org/2001/XMLSchema#double">Double</ows:DataType>
+						<ows:UOM>hour</ows:UOM>
+					</LiteralDataDomain>
+				</wps:LiteralData>
+			</wps:Input>
+			
+			
+			<wps:Input>
+				<ows:Title>Precipitation observation</ows:Title>
+				<ows:Identifier>Precipitation</ows:Identifier>
+				<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#runtime"/>
+				<wps:Input>
+					<ows:Title>Amount of precipitation</ows:Title>
+					<ows:Identifier>Value</ows:Identifier>
+					<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#quantity"/>
+					<wps:LiteralData>
+						<wps:Format mimeType="text/plain" default="true"/>
+						<LiteralDataDomain default="true">
+							<ows:DataType ows:reference="http://www.w3.org/2001/XMLSchema#double">Double</ows:DataType>
+							<ows:UOM>mm</ows:UOM>
+						</LiteralDataDomain>
+					</wps:LiteralData>
+				</wps:Input>
+				<wps:Input>
+					<ows:Title>time stamp</ows:Title>
+					<ows:Identifier>Value_Timestamp</ows:Identifier>
+					<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#time"/>
+					<wps:LiteralData>
+						<wps:Format mimeType="text/plain" default="true"/>
+						<LiteralDataDomain default="true">
+							<ows:DataType ows:reference="http://www.w3.org/2001/XMLSchema#string">String</ows:DataType>
+						</LiteralDataDomain>
+					</wps:LiteralData>
+				</wps:Input>
+			</wps:Input>
+			
+			<wps:Input>
+				<ows:Title>Potential Evapotranspiration</ows:Title>
+				<ows:Identifier>Evapotranspiration</ows:Identifier>
+				<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#runtime"/>
+				<wps:Input>
+					<ows:Title>Amount of Evapotranspiration</ows:Title>
+					<ows:Identifier>Value</ows:Identifier>
+					<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#quantity"/>
+					<wps:LiteralData>
+						<wps:Format mimeType="text/plain" default="true"/>
+						<LiteralDataDomain default="true">
+							<ows:DataType ows:reference="http://www.w3.org/2001/XMLSchema#double">Double</ows:DataType>
+							<ows:UOM>mm</ows:UOM>
+						</LiteralDataDomain>
+					</wps:LiteralData>
+				</wps:Input>
+				<wps:Input>
+					<ows:Title>time stamp</ows:Title>
+					<ows:Identifier>Value_Timestamp</ows:Identifier>
+					<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#time"/>
+					<wps:LiteralData>
+						<wps:Format mimeType="text/plain" default="true"/>
+						<LiteralDataDomain default="true">
+							<ows:DataType ows:reference="http://www.w3.org/2001/XMLSchema#string">String</ows:DataType>
+						</LiteralDataDomain>
+					</wps:LiteralData>
+				</wps:Input>
+			</wps:Input>
+			
+			<wps:Output>
+				<ows:Title>Step runoff</ows:Title>
+				<ows:Abstract>runoff per step</ows:Abstract>
+				<ows:Identifier>step_runoff</ows:Identifier>
+				<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#runtime"/>
+				<wps:Output>
+					<ows:Title>Value</ows:Title>
+					<ows:Abstract>amount of runoff</ows:Abstract>
+					<ows:Identifier>Value</ows:Identifier>
+					<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#quantity"/>
+					<wps:LiteralData>
+						<wps:Format mimeType="text/plain" default="true"/>
+						<LiteralDataDomain default="true">
+							<ows:DataType ows:reference="http://www.w3.org/2001/XMLSchema#double">Double</ows:DataType>
+							<ows:UOM>mm</ows:UOM>
+						</LiteralDataDomain>
+					</wps:LiteralData>
+				</wps:Output>
+				
+				<wps:Output>
+					<ows:Title>time stamp</ows:Title>
+					<ows:Identifier>value_timestamp</ows:Identifier>
+					<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#time"/>
+					<wps:LiteralData>
+						<wps:Format mimeType="text/plain" default="true"/>
+						<LiteralDataDomain default="true">
+							<ows:DataType ows:reference="http://www.w3.org/2001/XMLSchema#string">String</ows:DataType>
+						</LiteralDataDomain>
+					</wps:LiteralData>
+				</wps:Output>				
+			</wps:Output>
+			
+			
+		<wps:Output>
+				<ows:Title>Area Runoff</ows:Title>
+				<ows:Abstract>Runoff per unit area</ows:Abstract>
+				<ows:Identifier>Area_Runoff</ows:Identifier>
+				<ows:Metadata xlink:role="http://geoprocessing.whu.edu.cn/iotype" xlink:href="http://geoprocessing.whu.edu.cn/iotype#common"/>
+				<wps:ComplexData>
+					<wps:Format mimeType="text/plain" encoding="UTF-8" default="true"/>
+				</wps:ComplexData>
+			</wps:Output>
+		</wps:Process>
+	</wps:ProcessOffering>
+	
+</wps:ProcessOfferings>

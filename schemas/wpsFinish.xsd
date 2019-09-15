@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:wps="http://www.opengis.net/wps/2.0"
+	targetNamespace="http://www.opengis.net/wps/2.0"
+	elementFormDefault="qualified"
+	xml:lang="en"
+	version="2.0.0">
+	
+	<annotation>
+		<documentation>
+			WPS is an OGC Standard.
+			Copyright (c) 2015 Open Geospatial Consortium.
+			This is an extension to WPS 2.0.
+		</documentation>
+	</annotation>
+	
+	<!-- all-components document include (OGC 06-135r11 s#14) -->
+	<include schemaLocation="wps.xsd"/>
+	
+	<!-- === INCLUDES === -->
+	<include schemaLocation="wpsCommon.xsd"/>
+	
+	<!-- =========================================================== -->
+	<!-- Finish request elements and types -->
+	<!-- =========================================================== -->
+	<element name="Finish">
+		<annotation>
+			<documentation>
+				The new added Finish operation request. This operation is used to finish the execution of model.
+				The response to a Finish operation is a StatusInfo document or an exception.
+			</documentation>
+		</annotation>
+		<complexType>
+			<complexContent>
+				<extension base="wps:RequestBaseType">
+					<sequence>
+						<element ref="wps:JobID"/>
+					</sequence>
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+	
+</schema>

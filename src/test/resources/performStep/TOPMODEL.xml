@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wps:PerformStep xmlns:wps="http://www.opengis.net/wps/2.0"
+	xmlns:ows="http://www.opengis.net/ows/2.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.opengis.net/wps/2.0 http://schemas.opengis.net/wps/2.0/wps.xsd"
+	service="WPS" version="2.0.0" response="document" mode="step">
+	<wps:JobID>1be69a11-3300-4d69-bb47-d5517e4f2714</wps:JobID>
+	
+	<wps:Input id="Evapotranspiration">
+		<wps:Input id="Value">
+			<wps:Data>
+				<wps:LiteralValue>9.66</wps:LiteralValue>
+			</wps:Data>
+		</wps:Input>
+		<wps:Input id="Time">
+			<wps:Data>
+				<wps:LiteralValue>2006-06-02 00:00:00</wps:LiteralValue>
+			</wps:Data>
+		</wps:Input>		
+	</wps:Input>
+	
+	<wps:Input id="Precipitation">
+		<wps:Input id="Value">
+			<wps:Data>
+				<wps:LiteralValue>9.66</wps:LiteralValue>
+			</wps:Data>
+		</wps:Input>
+		<wps:Input id="Time">
+			<wps:Data>
+				<wps:LiteralValue>2006-06-02 00:00:00</wps:LiteralValue>
+			</wps:Data>
+		</wps:Input>		
+	</wps:Input>
+	
+	<wps:Output id="StepRunoff" transmission="value"/>
+</wps:PerformStep>

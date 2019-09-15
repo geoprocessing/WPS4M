@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wps:Execute xmlns:wps="http://www.opengis.net/wps/2.0"
+	xmlns:ows="http://www.opengis.net/ows/2.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.opengis.net/wps/2.0 http://schemas.opengis.net/wps/2.0/wps.xsd"
+	service="WPS" version="2.0.0" response="document" mode="step">
+	<ows:Identifier>TOPMODEL</ows:Identifier>
+
+	<wps:Input id="Rate">
+		<wps:Data>
+			<wps:LiteralValue>9.66</wps:LiteralValue>
+		</wps:Data>
+	</wps:Input>
+
+	<wps:Input id="Recession">
+		<wps:Data>
+			<wps:LiteralValue>90</wps:LiteralValue>
+		</wps:Data>
+	</wps:Input>
+
+	<wps:Input id="Tmax">
+		<wps:Data>
+			<wps:LiteralValue>240000</wps:LiteralValue>
+		</wps:Data>
+	</wps:Input>
+
+	<wps:Input id="Interception">
+		<wps:Data>
+			<wps:LiteralValue>3</wps:LiteralValue>
+		</wps:Data>
+	</wps:Input>
+	<wps:Input id="WatershedArea">
+		<wps:Data>
+			<wps:LiteralValue>124800</wps:LiteralValue>
+		</wps:Data>
+	</wps:Input>
+	<wps:Input id="StartTime">
+		<wps:Data>
+			<wps:LiteralValue>2006-06-02 00:00:00</wps:LiteralValue>
+		</wps:Data>
+	</wps:Input>
+	<wps:Input id="EndTime">
+		<wps:Data>
+			<wps:LiteralValue>2009-10-31 00:00:00</wps:LiteralValue>
+		</wps:Data>
+	</wps:Input>
+
+	<wps:Input id="TimeStep">
+		<wps:Data>
+			<wps:LiteralValue>86400</wps:LiteralValue>
+		</wps:Data>
+	</wps:Input>
+	
+	<wps:Input id="TopoIndex">
+		<wps:Reference mimeType="text/plain" xlink:href="http://localhost:8080/data/TI_raster.txt"/>
+	</wps:Input>
+	
+	<wps:Output id="Runoff" mimeType="text/plain" transmission="reference" />
+</wps:Execute>

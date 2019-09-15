@@ -7,5 +7,7 @@
                            http://www.springframework.org/schema/util
                            http://www.springframework.org/schema/util/spring-util-4.1.xsd">
 
-	<bean id="stringJoint" class="geoprocessing.algorithm.StringJointProcess" />
+	<bean id="topmodel" class="geoprocessing.model.TOPMODEL" />
+	<bean id="generalFileParser" class="geoprocessing.io.datahandler.parser.GeneralFileParser" />
+	<bean id="generalFileGenerator" class="geoprocessing.io.datahandler.generator.GeneralFileGenerator" />
 </beans>

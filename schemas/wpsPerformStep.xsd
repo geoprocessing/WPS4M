@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:ows="http://www.opengis.net/ows/2.0"
+	xmlns:wps="http://www.opengis.net/wps/2.0"
+	targetNamespace="http://www.opengis.net/wps/2.0"
+	elementFormDefault="qualified"
+	xml:lang="en"
+	version="2.0.0">
+	
+	<annotation>
+		<documentation>
+			This is an extension OGC WPS standard.
+		</documentation>
+	</annotation>
+	
+	<!-- all-components document include (OGC 06-135r11 s#14) -->
+	<include schemaLocation="wps.xsd"/>
+	
+	<!-- === IMPORTS === -->
+	<import namespace="http://www.opengis.net/ows/2.0" schemaLocation="http://schemas.opengis.net/ows/2.0/owsAll.xsd" />
+	
+	<!-- === INCLUDES === -->
+	<include schemaLocation="wpsCommon.xsd"/>
+	
+	<!-- =========================================================== -->
+	<!-- Execute Request elements and types -->
+	<!-- =========================================================== -->
+	<element name="PerformStep" type="wps:PerformStepRequestType"/>
+	<!-- =========================================================== -->
+	<complexType name="PerformStepRequestType">
+		<annotation>
+			<documentation>
+				Schema for a PerformStep operation request, to advance the time-based computations.
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="wps:ExecuteRequestType">
+				<sequence>
+					<element ref="wps:JobID"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+
+</schema>
