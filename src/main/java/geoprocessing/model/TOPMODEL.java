@@ -26,14 +26,12 @@ import geoprocessing.util.TimeConverter;
 public class TOPMODEL extends AbstractModelWrapper{
 	
 	 private ProcessExecutionContext context;
-	
 	 //private Calendar startTimeCalendar,endTimeCalendar,currentTimeCalendar;
 	 
 	 protected double _simulationStartTime;
 	 protected double _simulationEndTime;
 	 protected double _currentTime;
 	 protected double _timeStep;
-	 
 	 
 	 double R;//subsurface Recharge rate [L/T]
      double c; //recession parameter (m)
@@ -56,7 +54,6 @@ public class TOPMODEL extends AbstractModelWrapper{
      Map<Date, Double> Precip = new HashMap<Date, Double>();
      Map<Date, Double> ET = new HashMap<Date, Double>();
      Map<Calendar, TopModelData> outputValues = new LinkedHashMap<Calendar, TopModelData>();
-     
     
      String[] _input_elementset;
      String[] _output_elementset;
@@ -240,52 +237,48 @@ public class TOPMODEL extends AbstractModelWrapper{
         advanceStep();
 		return true;
 	}
-	
-	
-	@Override
-	protected TypedProcessDescription createDescription() {
-		return new TopmodelDescriptionGenerator().createDescription();
-	}
 
-	
 	@Override
 	protected boolean finishModel() {
 		try {
-			 Path tmpPath = this.getBasePath().resolve(this.context.getJobId().getValue()).resolve("Topmodel_output.txt");
-			 File file = tmpPath.toFile();
-			 if (!file.exists()) {
+			String path = this.getTmpPath().toFile().getAbsolutePath() + File.separator + "Topmodel_output.txt";
+			
+			File file = new File(path);
+			
+			if (!file.exists()) {
 				file.createNewFile();
 			}
-			 BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-			 String line = "";
-			 String timeFormat = "yyyy-MM-dd hh:mm:ss";
-			 bw.write("Daily Runoff....");
-			 bw.newLine();
-			 Calendar startCalendar =this.getStartTime();
-			 Calendar endCalendar =this.getEndTime();
-			 line = "StartDate: "+TimeConverter.calendar2Str(startCalendar, timeFormat);
-			 bw.write(line);
-			 bw.newLine();
-			 line = "EndDate: "+TimeConverter.calendar2Str(endCalendar, timeFormat);
-			 bw.write(line);
-			 bw.newLine();
-			 bw.newLine();
-			 line = "Time["+timeFormat+"], Runoff, Streamflow [l/s], PET, Precipitation";
-			 bw.write(line);
-			 bw.newLine();
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+			String line = "";
+			String timeFormat = "yyyy-MM-dd hh:mm:ss";
+			bw.write("Daily Runoff....");
+			bw.newLine();
+			Calendar startCalendar = this.getStartTime();
+			Calendar endCalendar = this.getEndTime();
+			line = "StartDate: " + TimeConverter.calendar2Str(startCalendar, timeFormat);
+			bw.write(line);
+			bw.newLine();
+			line = "EndDate: " + TimeConverter.calendar2Str(endCalendar, timeFormat);
+			bw.write(line);
+			bw.newLine();
+			bw.newLine();
+			line = "Time[" + timeFormat + "], Runoff, Streamflow [l/s], PET, Precipitation";
+			bw.write(line);
+			bw.newLine();
 
-			 for(Calendar calendar:outputValues.keySet()){
-				 String time = TimeConverter.calendar2Str(calendar, timeFormat);
-				 TopModelData modelData = outputValues.get(calendar);
-				 line = time+", "+modelData.getRunoff()+", "+modelData.getStreamFlow()+", "+modelData.getPet()+", "+modelData.getPrecip();
-				 bw.write(line);
-				 bw.newLine();
-			 }
-	        bw.flush();
-	        bw.close();
+			for (Calendar calendar : outputValues.keySet()) {
+				String time = TimeConverter.calendar2Str(calendar, timeFormat);
+				TopModelData modelData = outputValues.get(calendar);
+				line = time + ", " + modelData.getRunoff() + ", " + modelData.getStreamFlow() + ", "
+						+ modelData.getPet() + ", " + modelData.getPrecip();
+				bw.write(line);
+				bw.newLine();
+			}
+			bw.flush();
+			bw.close();
 
 			this.getFinalOutput().clear();
-			this.getFinalOutput().put(this.runoff,new GeneralFileBinding(file));
+			this.getFinalOutput().put(this.runoff, new GeneralFileBinding(file));
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -293,6 +286,12 @@ public class TOPMODEL extends AbstractModelWrapper{
 			return false;
 		}
 	}
+	
+	@Override
+	protected TypedProcessDescription createDescription() {
+		return new TopmodelDescriptionGenerator().createDescription();
+	}
+
 	
 	private double sum(double[] values) {
 		double total = 0;
@@ -303,11 +302,6 @@ public class TOPMODEL extends AbstractModelWrapper{
 	}
 	
 	private void advanceStep() {
-		/*
-		 * this._currentTime += _timeStep; Calendar currTime =
-		 * TimeConverter.modifiedJulian2Gregorian(this._currentTime);
-		 * setCurrentTime(currTime);
-		 */
 		this.getCurrentTime().add(Calendar.SECOND, (int)(_timeStep*60*60*24));
 	}
 	

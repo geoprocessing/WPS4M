@@ -31,7 +31,7 @@ import geoprocessing.io.data.binding.complex.GeneralFileBinding;
 
 @Configurable
 public abstract class AbstractModelWrapper extends AbstractAlgorithm implements IEnvModel {
-	private Path basePath;
+	private Path basePath,tmpPath;
 	private Calendar startTime, endTime, currentTime;
 	private StringBuffer errInfo = new StringBuffer();
 	private ProcessExecutionContext context;
@@ -195,7 +195,22 @@ public abstract class AbstractModelWrapper extends AbstractAlgorithm implements 
 		return this.basePath;
 	}
 
+	protected Path getTmpPath() {
+		if(this.tmpPath==null) {
+			String jobId = this.getContext().getJobId().getValue();
+			this.tmpPath = this.basePath.resolve(jobId);
+			File tmpDir = this.tmpPath.toFile();
+			if(!tmpDir.exists())
+				tmpDir.mkdirs();
+		}
+		return this.tmpPath;
+	}
+	
 	protected void appendErr(String errInfo) {
 		this.errInfo.append(errInfo);
+	}
+	
+	public ProcessExecutionContext getContext() {
+		return this.context;
 	}
 }
