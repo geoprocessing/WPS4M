@@ -6,9 +6,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -62,6 +62,10 @@ public class TOPMODEL extends AbstractModelWrapper{
      List<Calendar> _DateTimes = new ArrayList<Calendar>();
      List<Double> q_outputs = new ArrayList<Double>();
      List<Double> q_infltration_outputs = new ArrayList<Double>();
+     
+     BufferedWriter bw = null;
+     String timeFormat = "yyyy-MM-dd hh:mm:ss";
+     private String outpath;
      
      private final String  recession_inid = "Recession",
     		 tmax_inid="Tmax",  rate_inid = "Rate",
@@ -120,6 +124,8 @@ public class TOPMODEL extends AbstractModelWrapper{
         S_average = S_bar;
         
         _currentTime = _simulationStartTime;
+        
+        this.initializeStore();
 		return true;
 	}
      
@@ -224,8 +230,9 @@ public class TOPMODEL extends AbstractModelWrapper{
         modelData.setPrecip(PPT_daily);
         modelData.setPet(ET_daily);
         modelData.setRunoff(q);
-        modelData.setStreamFlow(streamflow[0]);
+        //modelData.setStreamFlow(streamflow[0]);
         outputValues.put(curr_time, modelData);
+        this.writeData(curr_time, modelData);
         
         Map<String, Object> groupMap = new HashMap<String, Object>();
         groupMap.put("Time", etTime);
@@ -238,19 +245,17 @@ public class TOPMODEL extends AbstractModelWrapper{
 		return true;
 	}
 
-	@Override
-	protected boolean finishModel() {
+	private void initializeStore() {
 		try {
-			String path = this.getTmpPath().toFile().getAbsolutePath() + File.separator + "Topmodel_output.txt";
-			
-			File file = new File(path);
-			
+
+			this.outpath = this.getTmpPath().toFile().getAbsolutePath() + File.separator + "Topmodel_output.txt";
+			File file = new File(this.outpath);
+
 			if (!file.exists()) {
 				file.createNewFile();
 			}
-			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+			bw = new BufferedWriter(new FileWriter(file));
 			String line = "";
-			String timeFormat = "yyyy-MM-dd hh:mm:ss";
 			bw.write("Daily Runoff....");
 			bw.newLine();
 			Calendar startCalendar = this.getStartTime();
@@ -262,23 +267,35 @@ public class TOPMODEL extends AbstractModelWrapper{
 			bw.write(line);
 			bw.newLine();
 			bw.newLine();
-			line = "Time[" + timeFormat + "], Runoff, Streamflow [l/s], PET, Precipitation";
+			line = "Time[" + timeFormat + "], Runoff, PET, Precipitation";
 			bw.write(line);
 			bw.newLine();
-
-			for (Calendar calendar : outputValues.keySet()) {
-				String time = TimeConverter.calendar2Str(calendar, timeFormat);
-				TopModelData modelData = outputValues.get(calendar);
-				line = time + ", " + modelData.getRunoff() + ", " + modelData.getStreamFlow() + ", "
-						+ modelData.getPet() + ", " + modelData.getPrecip();
-				bw.write(line);
-				bw.newLine();
-			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
+	private void writeData(Calendar calendar, TopModelData modelData) {
+		String time = TimeConverter.calendar2Str(calendar, timeFormat);
+		String line = time + ", " + modelData.getRunoff() + ", " + modelData.getPet() + ", " + modelData.getPrecip();
+		try {
+			bw.write(line);
+			bw.newLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	protected boolean finishModel() {
+		try {
 			bw.flush();
 			bw.close();
 
 			this.getFinalOutput().clear();
-			this.getFinalOutput().put(this.runoff, new GeneralFileBinding(file));
+			this.getFinalOutput().put(this.runoff, new GeneralFileBinding(new File(outpath)));
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
