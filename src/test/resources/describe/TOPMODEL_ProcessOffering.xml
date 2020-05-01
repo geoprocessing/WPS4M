@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wps:ProcessOfferings xmlns:wps="http://www.opengis.net/wps/2.0" xmlns:ows="http://www.opengis.net/ows/2.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wps/2.0 http://schemas.opengis.net/wps/2.0/wps.xsd">
+    <wps:ProcessOffering jobControlOptions="async-execute dismiss sync-execute" outputTransmission="value reference" processVersion="1.0.0" processModel="native">
+        <wps:Process xsi:schemaLocation="http://www.opengis.net/wps/2.0 http://schemas.opengis.net/wps/2.0/wps.xsd">
+            <ows:Title>TOPMODEL</ows:Title>
+            <ows:Identifier>TOPMODEL</ows:Identifier>
+            <wps:Input minOccurs="1" maxOccurs="1">
+                <ows:Title>TimeStep</ows:Title>
+                <ows:Identifier>TimeStep</ows:Identifier>
+                <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#common" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                <wps:LiteralData>
+                    <wps:Format mimeType="application/xml" default="true"/>
+                    <wps:Format mimeType="text/xml"/>
+                    <wps:Format mimeType="text/plain"/>
+                    <wps:Format mimeType="text/plain" encoding="base64"/>
+                    <LiteralDataDomain default="true">
+                        <ows:AnyValue/>
+                    </LiteralDataDomain>
+                </wps:LiteralData>
+            </wps:Input>
+            <wps:Input minOccurs="1" maxOccurs="1">
+                <ows:Title>Rate</ows:Title>
+                <ows:Identifier>Rate</ows:Identifier>
+                <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#common" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                <wps:LiteralData>
+                    <wps:Format mimeType="application/xml" default="true"/>
+                    <wps:Format mimeType="text/xml"/>
+                    <wps:Format mimeType="text/plain"/>
+                    <wps:Format mimeType="text/plain" encoding="base64"/>
+                    <LiteralDataDomain default="true">
+                        <ows:AnyValue/>
+                    </LiteralDataDomain>
+                </wps:LiteralData>
+            </wps:Input>
+            <wps:Input minOccurs="1" maxOccurs="1">
+                <ows:Title>TopoIndex</ows:Title>
+                <ows:Identifier>TopoIndex</ows:Identifier>
+                <wps:ComplexData>
+                    <wps:Format mimeType="text/plain" default="true"/>
+                    <wps:Format mimeType="text/plain"/>
+                </wps:ComplexData>
+            </wps:Input>
+            <wps:Input minOccurs="1" maxOccurs="1">
+                <ows:Title>Tmax</ows:Title>
+                <ows:Identifier>Tmax</ows:Identifier>
+                <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#common" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                <wps:LiteralData>
+                    <wps:Format mimeType="application/xml" default="true"/>
+                    <wps:Format mimeType="text/xml"/>
+                    <wps:Format mimeType="text/plain"/>
+                    <wps:Format mimeType="text/plain" encoding="base64"/>
+                    <LiteralDataDomain default="true">
+                        <ows:AnyValue/>
+                    </LiteralDataDomain>
+                </wps:LiteralData>
+            </wps:Input>
+            <wps:Input minOccurs="1" maxOccurs="1">
+                <ows:Title>WatershedArea</ows:Title>
+                <ows:Identifier>WatershedArea</ows:Identifier>
+                <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#common" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                <wps:LiteralData>
+                    <wps:Format mimeType="application/xml" default="true"/>
+                    <wps:Format mimeType="text/xml"/>
+                    <wps:Format mimeType="text/plain"/>
+                    <wps:Format mimeType="text/plain" encoding="base64"/>
+                    <LiteralDataDomain default="true">
+                        <ows:AnyValue/>
+                    </LiteralDataDomain>
+                </wps:LiteralData>
+            </wps:Input>
+            <wps:Input minOccurs="0" maxOccurs="1">
+                <ows:Title>Precipitation</ows:Title>
+                <ows:Identifier>Precipitation</ows:Identifier>
+                <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#runtime" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                <wps:Input minOccurs="0" maxOccurs="1">
+                    <ows:Title>Time</ows:Title>
+                    <ows:Identifier>Time</ows:Identifier>
+                    <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#time" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                    <wps:LiteralData>
+                        <wps:Format mimeType="application/xml" default="true"/>
+                        <wps:Format mimeType="text/xml"/>
+                        <wps:Format mimeType="text/plain"/>
+                        <wps:Format mimeType="text/plain" encoding="base64"/>
+                        <LiteralDataDomain default="true">
+                            <ows:AnyValue/>
+                        </LiteralDataDomain>
+                    </wps:LiteralData>
+                </wps:Input>
+                <wps:Input minOccurs="0" maxOccurs="1">
+                    <ows:Title>Value</ows:Title>
+                    <ows:Identifier>Value</ows:Identifier>
+                    <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#quantity" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                    <wps:LiteralData>
+                        <wps:Format mimeType="application/xml" default="true"/>
+                        <wps:Format mimeType="text/xml"/>
+                        <wps:Format mimeType="text/plain"/>
+                        <wps:Format mimeType="text/plain" encoding="base64"/>
+                        <LiteralDataDomain default="true">
+                            <ows:AnyValue/>
+                        </LiteralDataDomain>
+                    </wps:LiteralData>
+                </wps:Input>
+            </wps:Input>
+            <wps:Input minOccurs="1" maxOccurs="1">
+                <ows:Title>Interception</ows:Title>
+                <ows:Identifier>Interception</ows:Identifier>
+                <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#common" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                <wps:LiteralData>
+                    <wps:Format mimeType="application/xml" default="true"/>
+                    <wps:Format mimeType="text/xml"/>
+                    <wps:Format mimeType="text/plain"/>
+                    <wps:Format mimeType="text/plain" encoding="base64"/>
+                    <LiteralDataDomain default="true">
+                        <ows:AnyValue/>
+                    </LiteralDataDomain>
+                </wps:LiteralData>
+            </wps:Input>
+            <wps:Input minOccurs="1" maxOccurs="1">
+                <ows:Title>EndTime</ows:Title>
+                <ows:Identifier>EndTime</ows:Identifier>
+                <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#common" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                <wps:LiteralData>
+                    <wps:Format mimeType="application/xml" default="true"/>
+                    <wps:Format mimeType="text/xml"/>
+                    <wps:Format mimeType="text/plain"/>
+                    <wps:Format mimeType="text/plain" encoding="base64"/>
+                    <LiteralDataDomain default="true">
+                        <ows:AnyValue/>
+                    </LiteralDataDomain>
+                </wps:LiteralData>
+            </wps:Input>
+            <wps:Input minOccurs="1" maxOccurs="1">
+                <ows:Title>Recession</ows:Title>
+                <ows:Identifier>Recession</ows:Identifier>
+                <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#common" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                <wps:LiteralData>
+                    <wps:Format mimeType="application/xml" default="true"/>
+                    <wps:Format mimeType="text/xml"/>
+                    <wps:Format mimeType="text/plain"/>
+                    <wps:Format mimeType="text/plain" encoding="base64"/>
+                    <LiteralDataDomain default="true">
+                        <ows:AnyValue/>
+                    </LiteralDataDomain>
+                </wps:LiteralData>
+            </wps:Input>
+            <wps:Input minOccurs="0" maxOccurs="1">
+                <ows:Title>Evapotranspiration</ows:Title>
+                <ows:Identifier>Evapotranspiration</ows:Identifier>
+                <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#runtime" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                <wps:Input minOccurs="0" maxOccurs="1">
+                    <ows:Title>Time</ows:Title>
+                    <ows:Identifier>Time</ows:Identifier>
+                    <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#time" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                    <wps:LiteralData>
+                        <wps:Format mimeType="application/xml" default="true"/>
+                        <wps:Format mimeType="text/xml"/>
+                        <wps:Format mimeType="text/plain"/>
+                        <wps:Format mimeType="text/plain" encoding="base64"/>
+                        <LiteralDataDomain default="true">
+                            <ows:AnyValue/>
+                        </LiteralDataDomain>
+                    </wps:LiteralData>
+                </wps:Input>
+                <wps:Input minOccurs="0" maxOccurs="1">
+                    <ows:Title>Value</ows:Title>
+                    <ows:Identifier>Value</ows:Identifier>
+                    <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#quantity" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                    <wps:LiteralData>
+                        <wps:Format mimeType="application/xml" default="true"/>
+                        <wps:Format mimeType="text/xml"/>
+                        <wps:Format mimeType="text/plain"/>
+                        <wps:Format mimeType="text/plain" encoding="base64"/>
+                        <LiteralDataDomain default="true">
+                            <ows:AnyValue/>
+                        </LiteralDataDomain>
+                    </wps:LiteralData>
+                </wps:Input>
+            </wps:Input>
+            <wps:Input minOccurs="1" maxOccurs="1">
+                <ows:Title>StartTime</ows:Title>
+                <ows:Identifier>StartTime</ows:Identifier>
+                <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#common" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                <wps:LiteralData>
+                    <wps:Format mimeType="application/xml" default="true"/>
+                    <wps:Format mimeType="text/xml"/>
+                    <wps:Format mimeType="text/plain"/>
+                    <wps:Format mimeType="text/plain" encoding="base64"/>
+                    <LiteralDataDomain default="true">
+                        <ows:AnyValue/>
+                    </LiteralDataDomain>
+                </wps:LiteralData>
+            </wps:Input>
+            <wps:Output>
+                <ows:Title>watershed runoff</ows:Title>
+                <ows:Identifier>Runoff</ows:Identifier>
+                <wps:ComplexData>
+                    <wps:Format mimeType="text/plain" default="true"/>
+                    <wps:Format mimeType="text/plain"/>
+                </wps:ComplexData>
+            </wps:Output>
+            <wps:Output>
+                <ows:Title>StepRunoff</ows:Title>
+                <ows:Identifier>StepRunoff</ows:Identifier>
+                <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#runtime" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                <wps:Output>
+                    <ows:Title>Time</ows:Title>
+                    <ows:Identifier>Time</ows:Identifier>
+                    <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#time" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                    <wps:LiteralData>
+                        <wps:Format mimeType="application/xml" default="true"/>
+                        <wps:Format mimeType="text/xml"/>
+                        <wps:Format mimeType="text/plain"/>
+                        <wps:Format mimeType="text/plain" encoding="base64"/>
+                        <LiteralDataDomain default="true">
+                            <ows:AnyValue/>
+                            <ows:DataType>string</ows:DataType>
+                        </LiteralDataDomain>
+                    </wps:LiteralData>
+                </wps:Output>
+                <wps:Output>
+                    <ows:Title>Value</ows:Title>
+                    <ows:Identifier>Value</ows:Identifier>
+                    <ows:Metadata xlink:href="http://geoprocessing.whu.edu.cn/iotype#quantity" xlink:title="http://geoprocessing.whu.edu.cn/iotype"/>
+                    <wps:LiteralData>
+                        <wps:Format mimeType="application/xml" default="true"/>
+                        <wps:Format mimeType="text/xml"/>
+                        <wps:Format mimeType="text/plain"/>
+                        <wps:Format mimeType="text/plain" encoding="base64"/>
+                        <LiteralDataDomain default="true">
+                            <ows:AnyValue/>
+                            <ows:DataType>string</ows:DataType>
+                        </LiteralDataDomain>
+                    </wps:LiteralData>
+                </wps:Output>
+            </wps:Output>
+        </wps:Process>
+    </wps:ProcessOffering>
+</wps:ProcessOfferings>

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>geoprocessing</groupId>
-  <artifactId>javaps-model</artifactId>
+  <artifactId>wps4m</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
@@ -16,7 +16,7 @@
 		<version.spring>5.1.3.RELEASE</version.spring>
 		<version.slf4j>1.7.26</version.slf4j>
 		<version.log4j>2.3</version.log4j>
-		<version.arctic.sea>7.1.0</version.arctic.sea>
+		<version.arctic.sea>7.2.0-SNAPSHOT</version.arctic.sea>
 		<version.javaps>1.4.0-SNAPSHOT</version.javaps>
 		<version.xmlbeans>3.1.0</version.xmlbeans>
 		<version.jts>1.13</version.jts>
@@ -39,6 +39,13 @@
 	</developers>
 	
   	<dependencies>
+  	<!-- 
+	<dependency>
+		<groupId>geoprocessing</groupId>
+		<artifactId>wps-v210</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</dependency>  	
+   -->
 		<dependency>
 			<groupId>org.n52.wps</groupId>
 			<artifactId>engine</artifactId>
@@ -77,5 +84,13 @@
 			<version>${version.arctic.sea}</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>geoprocessing</groupId>
+			<artifactId>swmm4j</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		
 	</dependencies>
 </project>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wps:PerformStep xmlns:wps="http://www.opengis.net/wps/2.0"
+	xmlns:ows="http://www.opengis.net/ows/2.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.opengis.net/wps/2.0 http://schemas.opengis.net/wps/2.0/wps.xsd"
+	service="WPS" version="2.0.0" response="document" mode="step">
+	<wps:JobID>f63b1b67-0016-426c-b2b1-d806e56e6da4</wps:JobID>
+
+	<wps:Input id="RainGage1">
+		<wps:Input id="datetime">
+			<wps:Data>
+				<wps:LiteralValue>2007-01-01 00:00:00</wps:LiteralValue>
+			</wps:Data>
+		</wps:Input>
+		<wps:Input id="rainfall">
+			<wps:Data>
+				<wps:LiteralValue>25.4</wps:LiteralValue>
+			</wps:Data>
+		</wps:Input>
+	</wps:Input>
+	<wps:Input id="RainGage2">
+		<wps:Input id="datetime">
+			<wps:Data>
+				<wps:LiteralValue>2007-01-01 00:00:00</wps:LiteralValue>
+			</wps:Data>
+		</wps:Input>
+		<wps:Input id="rainfall">
+			<wps:Data>
+				<wps:LiteralValue>0</wps:LiteralValue>
+			</wps:Data>
+		</wps:Input>
+	</wps:Input>
+	<wps:Output id="C1" transmission="value">
+		<wps:Output id="datetime" transmission="value"/>
+		<wps:Output id="flow" transmission="value"/>
+		<wps:Output id="depth" transmission="value"/>
+	</wps:Output>
+	
+	<wps:Output id="C11" transmission="value">
+		<wps:Output id="datetime" transmission="value"/>
+		<wps:Output id="flow" transmission="value"/>
+		<wps:Output id="depth" transmission="value"/>
+	</wps:Output>
+</wps:PerformStep>

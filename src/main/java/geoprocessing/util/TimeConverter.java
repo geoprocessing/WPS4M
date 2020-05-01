@@ -3,10 +3,14 @@ package geoprocessing.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 
 public class TimeConverter {
@@ -80,6 +84,23 @@ public class TimeConverter {
 		return calendar;
 	}
 	
+	
+	 public static LocalDateTime toLocalDateTime(Calendar calendar) {
+	      TimeZone tz = calendar.getTimeZone();
+	      ZoneId zid = tz == null ? ZoneId.systemDefault() : tz.toZoneId();
+	      return LocalDateTime.ofInstant(calendar.toInstant(), zid);
+	  }
+	 
+	 public static String local2String(LocalDateTime localTime,String format) {
+		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+		 return localTime.format(formatter);
+	 }
+	 
+	 public static String local2String(LocalDateTime localTime) {
+		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		 return localTime.format(formatter);
+	 }
+	 
 	/**
 	 * 
 	 * @param time the string of time

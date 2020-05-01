@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wps:Execute xmlns:wps="http://www.opengis.net/wps/2.0"
+	xmlns:ows="http://www.opengis.net/ows/2.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.opengis.net/wps/2.0 http://schemas.opengis.net/wps/2.0/wps.xsd"
+	service="WPS" version="2.0.0" response="document" mode="async">
+	<ows:Identifier>SWMM5</ows:Identifier>
+	
+	<wps:Input id="INPInput">
+		<wps:Reference mimeType="text/inp" xlink:href="http://localhost:8080/data/example2.inp"/>
+	</wps:Input>
+	<wps:Input id="TimeStep">
+		<wps:Data><wps:LiteralValue>300</wps:LiteralValue></wps:Data>
+	</wps:Input>
+	
+	<wps:Output id="Report" mimeType="text/rpt" transmission="reference" />
+	<wps:Output id="Result" mimeType="application/binary" transmission="reference" />
+</wps:Execute>
