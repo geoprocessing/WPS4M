@@ -75,9 +75,14 @@ public class TOPMODEL extends AbstractModelWrapper{
     		 startTime = "StartTime", endTime = "EndTime",timeStep="TimeStep",precipitation="Precipitation",evapotranspiration ="Evapotranspiration", steprunoff="StepRunoff",runoff="Runoff";
     	
      private String dateFormat = "yyyy-MM-dd HH:mm:ss";
-	
+     
+     long initTime = 0,stepTime=0,finishTime=0;
+     
 	@Override
 	protected boolean execute() {
+		
+		long initStartTime = System.currentTimeMillis();
+		
 		// TODO Auto-generated method stub
 		Map<String, Object> inputMap = this.getInitInput();
 		
@@ -126,11 +131,24 @@ public class TOPMODEL extends AbstractModelWrapper{
         _currentTime = _simulationStartTime;
         
         this.initializeStore();
+        
+        long initEndTime = System.currentTimeMillis();
+        initTime = initEndTime - initStartTime;
+        
 		return true;
 	}
      
 	@Override
 	protected boolean performStep() {
+		
+		long stepStartTime = System.currentTimeMillis();
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		Map<String, Object> inputMap = this.getStepInput();
 		
 		Calendar currentTime = this.getCurrentTime();
@@ -143,6 +161,8 @@ public class TOPMODEL extends AbstractModelWrapper{
 		Calendar preciCalendar = TimeConverter.str2Calendar(preciTime, dateFormat);
 		if(!currentTime.equals(preciCalendar)) {
 			this.appendErr("The time of "+this.precipitation+" is not equal to the current time");
+			System.out.println("the current time is "+TimeConverter.calendar2Str(currentTime, dateFormat));
+			System.out.println("the precipitation time is "+TimeConverter.calendar2Str(currentTime, dateFormat));
 			return false;
 		}
 		
@@ -242,6 +262,10 @@ public class TOPMODEL extends AbstractModelWrapper{
         this.getStepOutput().put(this.steprunoff, groupMap);
         
         advanceStep();
+        
+        long stepEndTime = System.currentTimeMillis();
+        stepTime = stepTime +(stepEndTime-stepStartTime);
+        
 		return true;
 	}
 
@@ -290,18 +314,25 @@ public class TOPMODEL extends AbstractModelWrapper{
 	
 	@Override
 	protected boolean finishModel() {
+		long finishStartTime = System.currentTimeMillis();
 		try {
 			bw.flush();
 			bw.close();
 
 			this.getFinalOutput().clear();
 			this.getFinalOutput().put(this.runoff, new GeneralFileBinding(new File(outpath)));
+			
+			long finishEndTime = System.currentTimeMillis();
+			finishTime = finishEndTime - finishStartTime;
+			
+			System.out.println("----------------initialization time:"+initTime+",step time:"+stepTime+",finish time:"+finishTime+",total time:"+(initTime+stepTime+finishTime));
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.appendErr(e.getMessage());
 			return false;
 		}
+		
 	}
 	
 	@Override

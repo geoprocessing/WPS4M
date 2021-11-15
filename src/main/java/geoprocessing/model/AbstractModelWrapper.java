@@ -2,7 +2,6 @@ package geoprocessing.model;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -22,12 +21,8 @@ import org.n52.javaps.io.complex.ComplexData;
 import org.n52.javaps.io.literal.LiteralData;
 import org.n52.javaps.settings.SettingsConstants;
 import org.n52.shetland.ogc.ows.OwsCode;
-import org.springframework.context.annotation.EnableLoadTimeWeaving;
-
-import com.fasterxml.jackson.annotation.JacksonInject.Value;
 
 import cn.edu.whu.model.IEnvModel;
-import geoprocessing.io.data.binding.complex.GeneralFileBinding;
 
 @Configurable
 public abstract class AbstractModelWrapper extends AbstractAlgorithm implements IEnvModel {

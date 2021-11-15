@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wps:ProcessOfferings xmlns:wps="http://www.opengis.net/wps/2.0" xmlns:ows="http://www.opengis.net/ows/2.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wps/2.0 http://schemas.opengis.net/wps/2.0/wps.xsd">
+    <wps:ProcessOffering jobControlOptions="async-execute dismiss sync-execute" outputTransmission="value reference" processVersion="1.0.0" processModel="native">
+        <wps:Process xsi:schemaLocation="http://www.opengis.net/wps/2.0 http://schemas.opengis.net/wps/2.0/wps.xsd">
+            <ows:Title>SelfDescriptionTest</ows:Title>
+            <ows:Identifier>SelfDescriptionTest</ows:Identifier>
+            <wps:Input minOccurs="1" maxOccurs="1">
+                <ows:Title>input</ows:Title>
+                <ows:Identifier>input</ows:Identifier>
+                <wps:ComplexData>
+                    <wps:Format mimeType="application/wkt" default="true"/>
+                    <wps:Format mimeType="application/wkt"/>
+                </wps:ComplexData>
+            </wps:Input>
+            <wps:Output>
+                <ows:Title>result</ows:Title>
+                <ows:Identifier>result</ows:Identifier>
+                <wps:LiteralData>
+                    <wps:Format mimeType="application/xml" default="true"/>
+                    <wps:Format mimeType="text/xml"/>
+                    <wps:Format mimeType="text/plain"/>
+                    <wps:Format mimeType="text/plain" encoding="base64"/>
+                    <LiteralDataDomain>
+                        <ows:AnyValue/>
+                        <ows:DataType>string</ows:DataType>
+                    </LiteralDataDomain>
+                </wps:LiteralData>
+            </wps:Output>
+        </wps:Process>
+    </wps:ProcessOffering>
+</wps:ProcessOfferings>
