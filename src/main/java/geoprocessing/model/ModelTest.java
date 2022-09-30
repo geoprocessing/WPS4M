@@ -2,6 +2,7 @@ package geoprocessing.model;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import org.n52.javaps.algorithm.AbstractAlgorithm;
 import org.n52.javaps.algorithm.ExecutionException;
@@ -111,4 +112,8 @@ public class ModelTest extends AbstractAlgorithm implements IEnvModel {
 		return null;
 	}
 
+	@Override
+	public Map<String, Object> performStep(Map<String, Map<String, Object>> inputs) {
+		return null;
+	}
 }

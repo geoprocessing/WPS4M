@@ -185,8 +185,13 @@ public class TOPMODEL2 extends AbstractAlgorithm implements IEnvModel{
 		this.context.getOutputs().clear();
 		this.context.getOutputs().put(new OwsCode("Runoff"), fileBinding);
 	}
-	
-	
+
+	@Override
+	public Map<String, Object> performStep(Map<String, Map<String, Object>> inputs) {
+		return null;
+	}
+
+
 	@Override
 	protected TypedProcessDescription createDescription() {
 		return new TopmodelDescriptionGenerator().createDescription();

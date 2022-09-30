@@ -48,7 +48,16 @@ public abstract class AbstractModelWrapper extends AbstractAlgorithm implements 
 	}
 
 	protected abstract boolean execute();
-	
+
+
+	@Override
+	public Map<String, Object> performStep(Map<String, Map<String, Object>> inputs) {
+		this.StepInputMap.clear();
+		this.StepInputMap.putAll(inputs);
+		this.performStep();
+		return this.StepOutputMap;
+	}
+
 	private void retrieveInputs(ProcessExecutionContext context, Map<String, Object> inputMap) {
 		inputMap.clear();
 		ProcessInputs inputs = context.getInputs();

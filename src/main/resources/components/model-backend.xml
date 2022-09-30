@@ -8,6 +8,8 @@
                            http://www.springframework.org/schema/util/spring-util-4.1.xsd">
 
 	<bean id="topmodel" class="geoprocessing.model.TOPMODEL" />
+	<bean id="TOPMODELMqtt" class="geoprocessing.model.TOPMODELMqtt" />
+	<bean id="SWMMMqtt" class="geoprocessing.model.swmm5.SWMMMqtt" />
 	<bean id="SWMM5" class="geoprocessing.model.swmm5.SWMM" />
 	<bean id="generalFileParser" class="geoprocessing.io.datahandler.parser.GeneralFileParser" />
 	<bean id="generalFileGenerator" class="geoprocessing.io.datahandler.generator.GeneralFileGenerator" />

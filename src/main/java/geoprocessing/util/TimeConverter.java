@@ -3,6 +3,7 @@ package geoprocessing.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -94,6 +95,14 @@ public class TimeConverter {
 	 public static String local2String(LocalDateTime localTime,String format) {
 		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
 		 return localTime.format(formatter);
+	 }
+
+	 public static Calendar localToCalendar(LocalDateTime localDateTime){
+		 Instant instant = localDateTime.atZone(ZoneId.systemDefault()).toInstant();
+		 Date date = Date.from(instant);
+		 Calendar calendar = Calendar.getInstance();
+		 calendar.setTime(date);
+		 return calendar;
 	 }
 	 
 	 public static String local2String(LocalDateTime localTime) {

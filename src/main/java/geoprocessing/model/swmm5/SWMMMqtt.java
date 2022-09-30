@@ -1,39 +1,36 @@
 package geoprocessing.model.swmm5;
 
-import java.io.File;
-import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import cn.edu.whu.model.IEnvModel;
+import com.geoprocessing.model.swmm.JSWMM;
+import com.geoprocessing.model.swmm.SWMMExecption;
+import com.geoprocessing.model.swmm.StepSimulation;
+import com.geoprocessing.model.swmm.object.Link;
+import com.geoprocessing.model.swmm.object.Node;
+import com.geoprocessing.model.swmm.object.ObjectType;
+import geoprocessing.io.data.binding.complex.GeneralFileBinding;
+import geoprocessing.model.AbstractModelWrapper;
+import geoprocessing.util.TimeConverter;
 import org.n52.javaps.algorithm.AbstractAlgorithm;
 import org.n52.javaps.algorithm.ExecutionException;
 import org.n52.javaps.algorithm.ProcessInputs;
 import org.n52.javaps.algorithm.ProcessOutputs;
-import org.n52.javaps.description.TypedComplexOutputDescription;
 import org.n52.javaps.description.TypedProcessDescription;
-import org.n52.javaps.description.impl.TypedProcessDescriptionFactory;
 import org.n52.javaps.engine.ProcessExecutionContext;
 import org.n52.javaps.io.Data;
 import org.n52.javaps.io.GroupInputData;
 import org.n52.javaps.io.GroupOutputData;
 import org.n52.javaps.io.literal.LiteralData;
 import org.n52.shetland.ogc.ows.OwsCode;
-import org.n52.shetland.ogc.wps.Format;
-import org.n52.shetland.ogc.wps.description.ProcessInputDescription;
 
-import com.geoprocessing.model.swmm.JSWMM;
-import com.geoprocessing.model.swmm.SWMMExecption;
-import com.geoprocessing.model.swmm.StepSimulation;
-import com.geoprocessing.model.swmm.object.Link;
-import com.geoprocessing.model.swmm.object.ObjectType;
+import java.io.File;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import cn.edu.whu.model.IEnvModel;
-import geoprocessing.io.data.binding.complex.GeneralFileBinding;
-import geoprocessing.util.TimeConverter;
-
-public class SWMM extends AbstractAlgorithm implements IEnvModel {
+public class SWMMMqtt extends AbstractModelWrapper {
 
 	 private  TypedProcessDescription description;
 
@@ -43,10 +40,11 @@ public class SWMM extends AbstractAlgorithm implements IEnvModel {
 	 private JSWMM swmm;
 	 private StepSimulation stepSimulation = null;
 	 
-	 private SWMMDescriptionGenerator descriptionGeneator;
+	 private SWMMMqttDescriptionGenerator descriptionGeneator;
 	 
 	 private String dateFormat = "yyyy-MM-dd HH:mm:ss";
-	 
+
+	 /*
 	@Override
 	public void execute(ProcessExecutionContext context) throws ExecutionException {
 		// TODO Auto-generated method stub
@@ -82,7 +80,26 @@ public class SWMM extends AbstractAlgorithm implements IEnvModel {
 		stepSimulation.initialize();
 		
 		//stepSimulation.run();
-		updateDescription();
+	}
+	*/
+
+
+	@Override
+	protected boolean execute() {
+		Map<String, Object> inputMap = this.getInitInput();
+		File inputFile = (File) inputMap.get(this.descriptionGeneator.input);
+		Double timestep = (Double) inputMap.get(this.descriptionGeneator.timeStep);
+
+		try {
+			swmm = new JSWMM(inputFile.getAbsolutePath());
+		} catch (SWMMExecption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		stepSimulation = new StepSimulation(swmm, timestep.intValue());
+		stepSimulation.initialize();
+		return true;
 	}
 
 	@Override
@@ -140,57 +157,115 @@ public class SWMM extends AbstractAlgorithm implements IEnvModel {
         }
 	}
 
+
 	@Override
-	public void finish() throws ExecutionException {
-		// TODO Auto-generated method stub
+	protected boolean performStep() {
+		List<String> raingages = this.swmm.getRainGages();
+		Calendar dateTimeCalendar = null;
+		Map<String, Double> rainfall = new HashMap<String, Double>();
+
+		for(String raingage:raingages) {
+			Map<String, Object> raingageVaule =(Map<String, Object> ) this.getStepInput().get(raingage);
+			Double value = (Double)raingageVaule.get("Value");
+			dateTimeCalendar =(Calendar) raingageVaule.get("Time");
+			rainfall.put(raingage, value);
+		}
+
+		LocalDateTime localTime = TimeConverter.toLocalDateTime(dateTimeCalendar);
+		this.stepSimulation.step(rainfall,localTime);
+
+		LocalDateTime currentTime = this.swmm.getCurrentDateTime();
+		String curTimeString = TimeConverter.local2String(currentTime);
+
+		this.getStepOutput().clear();
+
+		List<String> conduits = this.swmm.getLinks();
+		for(String conduit:conduits) {
+
+			int index = this.swmm.findObjectIndex(ObjectType.LINK.getValue(), conduit);
+			Link link = new Link(this.swmm, index);
+			String flow = String.valueOf(link.getFlow());
+			String  depth = String.valueOf(link.getDepth());
+
+			Map<String,Object> flowValueMap = new HashMap<>();
+			flowValueMap.put("Value",flow);
+			flowValueMap.put("Time",dateTimeCalendar);
+			this.getStepOutput().put(conduit+"_flow",flowValueMap);
+
+
+			Map<String,Object> depthValueMap = new HashMap<>();
+			depthValueMap.put("Value",depth);
+			depthValueMap.put("Time",dateTimeCalendar);
+			this.getStepOutput().put(conduit+"_depth",depthValueMap);
+		}
+
+		List<String> nodes = this.swmm.getNodes();
+		for(String nodeStr:nodes) {
+
+			int index = this.swmm.findObjectIndex(ObjectType.NODE.getValue(), nodeStr);
+			Node node = new Node(this.swmm, index);
+			String flow = String.valueOf(node.getFlow());
+			String  depth = String.valueOf(node.getDepth());
+
+			Map<String,Object> flowValueMap = new HashMap<>();
+			flowValueMap.put("Value",flow);
+			flowValueMap.put("Time",dateTimeCalendar);
+			this.getStepOutput().put(nodeStr+"_flow",flowValueMap);
+
+
+			Map<String,Object> depthValueMap = new HashMap<>();
+			depthValueMap.put("Value",depth);
+			depthValueMap.put("Time",dateTimeCalendar);
+			this.getStepOutput().put(nodeStr+"_depth",depthValueMap);
+		}
+		return true;
+	}
+
+
+	@Override
+	protected boolean finishModel() {
 		System.out.println("finising");
 		stepSimulation.finish();
-		
+
 		String rptOut = swmm.getReport();
 		String resultOut = swmm.getOutput();
 		GeneralFileBinding rptFile = new GeneralFileBinding(new File(rptOut));
 		GeneralFileBinding resultFile = new GeneralFileBinding(new File(resultOut));
-		
+
 		context.getOutputs().put(new OwsCode(this.descriptionGeneator.rptOut), rptFile);
 		context.getOutputs().put(new OwsCode(this.descriptionGeneator.resultOut), resultFile);
+		return true;
 	}
 
-	@Override
-	public Map<String, Object> performStep(Map<String, Map<String, Object>> inputs) {
-		return null;
-	}
 
 	@Override
 	protected TypedProcessDescription createDescription() {
 		if(this.descriptionGeneator == null)
-			this.descriptionGeneator = new SWMMDescriptionGenerator();
-		
+			this.descriptionGeneator = new SWMMMqttDescriptionGenerator();
+
 		this.description = this.descriptionGeneator.createInitDescription();
 		
 		return this.description;
 	}
 
-	private void updateDescription() {
-		this.description = this.descriptionGeneator.updateDescription(this.swmm);
-		setDescription(this.description);
-	}
 	
 	@Override
 	public Calendar getStartTime() {
 		// TODO Auto-generated method stub
-		return null;
+		LocalDateTime localDateTime = this.swmm.getStartTime();
+		return TimeConverter.localToCalendar(localDateTime);
 	}
 
 	@Override
 	public Calendar getEndTime() {
-		// TODO Auto-generated method stub
-		return null;
+		LocalDateTime localDateTime = this.swmm.getEndTime();
+		return TimeConverter.localToCalendar(localDateTime);
 	}
 
 	@Override
 	public Calendar getCurrentTime() {
-		// TODO Auto-generated method stub
-		return null;
+		LocalDateTime localDateTime = this.swmm.getCurrentDateTime();
+		return TimeConverter.localToCalendar(localDateTime);
 	}
 
 }
